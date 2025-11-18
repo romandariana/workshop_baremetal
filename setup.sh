@@ -5,6 +5,7 @@ WORKSHOP_DIR="$HOME/workshop_baremetal"
 NO_OS_REPO="https://github.com/romandariana/no-OS.git"
 NO_OS_BRANCH="workshop"
 AI8X_REPO="https://github.com/analogdevicesinc/ai8x-synthesis.git"
+MAX_SDK_ZIP="MAX78000SDK.zip"
 
 sudo tee /etc/udev/rules.d/99-daplink.rules << 'EOF'
 # DAPLink/CMSIS-DAP - USB interface
@@ -47,4 +48,13 @@ if [ -d "$WORKSHOP_DIR/ai8x-synthesis" ]; then
 else
     cd "$WORKSHOP_DIR"
     git clone "$AI8X_REPO"
+fi
+
+if [ -d "$WORKSHOP_DIR/MAX78000SDK" ]; then
+    echo "MAX78000SDK already exists, skipping"
+else
+    cd "$WORKSHOP_DIR"
+    wget https://swdownloads.analog.com/cse/kuiper/kuiperv2.0.0/university-workshops/"$MAX_SDK_ZIP"
+    unzip "$MAX_SDK_ZIP"
+    rm "$MAX_SDK_ZIP"
 fi
